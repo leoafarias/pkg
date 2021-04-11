@@ -1,3 +1,3 @@
-## 0.0.1-dev.0
+## 0.0.1
 
-- Initial commit. (NOT PRODUCTION READY)
+- Initial release.
