@@ -1,6 +1,9 @@
+import 'package:pkg/src/constants.dart';
 @Timeout(Duration(minutes: 5))
 import 'package:pkg/src/runner.dart';
+import 'package:pkg/src/version.dart';
 import 'package:test/test.dart';
+import 'package:yaml_edit/yaml_edit.dart';
 
 void main() {
   test('Adds a package', () async {
@@ -29,5 +32,11 @@ void main() {
     } on Exception catch (e) {
       fail('Exception thrown, $e');
     }
+  });
+
+  test('Does CLI version match', () async {
+    final contents = pubpsecFile.readAsStringSync();
+    final pubspec = YamlEditor(contents);
+    expect(pubspec.parseAt(['version']).value, packageVersion);
   });
 }
