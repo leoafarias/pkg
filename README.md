@@ -36,3 +36,11 @@ Will remove the package from your pubspec.
 ```bash
 pkg remove <package>
 ```
+
+## View
+
+Display information about a package
+
+```bash
+pkg view <package>
+```
