@@ -3,7 +3,7 @@
 <!-- ![GitHub stars](https://img.shields.io/github/stars/leoafarias/pkg?style=social) -->
 
 [![Pub Version](https://img.shields.io/pub/v/pkg?label=version&style=flat-square)](https://pub.dev/packages/pkg/changelog)
-[![Health](https://img.shields.io/badge/dynamic/json?color=blue&label=health&query=pub_points&url=http://www.pubscore.gq/pub-points?package=pkg&style=flat-square&cacheSeconds=90000)](https://pub.dev/packages/fvm/score) ![Coverage](https://raw.githubusercontent.com/leoafarias/pkg/main/assets/coverage_badge.svg?sanitize=true) [![MIT Licence](https://img.shields.io/github/license/leoafarias/pkg?style=flat-square&longCache=true)](https://opensource.org/licenses/mit-license.php)
+[![Health](https://img.shields.io/badge/dynamic/json?color=blue&label=health&query=pub_points&url=http://www.pubscore.gq/pub-points?package=pkg&style=flat-square&cacheSeconds=90000)](https://pub.dev/packages/pkg/score) ![Coverage](https://raw.githubusercontent.com/leoafarias/pkg/main/assets/coverage_badge.svg?sanitize=true) [![MIT Licence](https://img.shields.io/github/license/leoafarias/pkg?style=flat-square&longCache=true)](https://opensource.org/licenses/mit-license.php)
 
 Enhanced pub package commands.
 
