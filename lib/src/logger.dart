@@ -32,6 +32,6 @@ class PrettyLogger {
 
   /// Starts print a divider on console
   void divider() => logger.stdout(
-        '___________________________________________________\n',
+        '------------------------------------------------',
       );
 }

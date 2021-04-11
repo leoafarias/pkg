@@ -26,7 +26,10 @@ abstract class BaseCommand extends Command<int> {
   FutureOr<int> run() {
     /// Validates all guards
     /// Will validate guards by default
-    guards.forEach(validateGuard);
+
+    for (final guard in guards) {
+      guard.validate(argResults);
+    }
     return runWithGuards();
   }
 

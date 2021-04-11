@@ -1,7 +1,6 @@
-import 'package:pkg/src/logger.dart';
-
-import '../helpers/api_client.dart';
 import '../helpers/dependency_ref.dart';
+import '../logger.dart';
+import 'fetch_package_info.workflow.dart';
 
 /// Adds the latatest version of a package
 /// version of [ref] as a dependency [type]
@@ -10,7 +9,7 @@ Future<void> addLatestVersionWorkflow(
   DependencyType where,
 ) async {
   // Get package info
-  final packageInfo = await pubClient.packageInfo(ref.packageName);
+  final packageInfo = await fetchPackageInfoWorkflow(ref);
 
   logger.stdout(packageInfo.version);
   // Add or update depependency

@@ -1,6 +1,38 @@
-![pkg](https://github.com/leoafarias/pkg/blob/main/assets/pkg-logo.png?raw=true)
+# ![pkg](https://github.com/leoafarias/pkg/blob/main/assets/pkg-logo.png?raw=true)
 
-# pkg
+<!-- ![GitHub stars](https://img.shields.io/github/stars/leoafarias/pkg?style=social) -->
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+[![Pub Version](https://img.shields.io/pub/v/pkg?label=version&style=flat-square)](https://pub.dev/packages/fvm/changelog)
+[![Health](https://img.shields.io/badge/dynamic/json?color=blue&label=health&query=pub_points&url=http://www.pubscore.gq/pub-points?package=pkg&style=flat-square&cacheSeconds=90000)](https://pub.dev/packages/fvm/score) ![Coverage](https://raw.githubusercontent.com/leoafarias/pkg/main/assets/coverage_badge.svg?sanitize=true) [![MIT Licence](https://img.shields.io/github/license/leoafarias/pkg?style=flat-square&longCache=true)](https://opensource.org/licenses/mit-license.php)
+
+Enhanced pub package commands.
+
+- Add latest resolvable package
+- Remove dependency
+- View package info
+- Improved conflict resolution (soon)
+- View unused dependencies (soon)
+
+# Installation
+
+```bash
+pub activate global pkg
+```
+
+# Usage
+
+## Add
+
+Easily add packages to your pubspec. By default pkg will try to `resolve` to the latest `compatible` version of the package to add to your project.
+
+```bash
+pkg add <package>
+```
+
+## Remove
+
+Will remove the package from your pubspec.
+
+```bash
+pkg remove <package>
+```

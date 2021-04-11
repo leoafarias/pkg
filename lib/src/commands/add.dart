@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:pkg/src/workflow/pub_get.workflow.dart';
+import 'package:io/io.dart';
 
 import '../exceptions.dart';
 import '../helpers/dependency_ref.dart';
-import '../helpers/exit_codes.dart';
 import '../helpers/guards.dart';
 import '../helpers/utils.dart';
 import '../workflow/add_latest.workflow.dart';
 import '../workflow/add_safe.workflow.dart';
+import '../workflow/pub_get.workflow.dart';
 import 'base.dart';
 
 /// Add pub package to project
@@ -17,7 +17,7 @@ class AddCommand extends BaseCommand {
   final name = 'add';
 
   @override
-  final description = 'Adds pub package to project';
+  final description = 'Safely adds package as dependency to pubspec';
 
   @override
   final String invocation = 'pkg add {package}';
@@ -56,8 +56,8 @@ class AddCommand extends BaseCommand {
 
   @override
   final guards = [
-    GuardHasPubspec(),
-    GuardTempDirExists(),
+    Guard.HasPubspec,
+    Guard.HasPackageArg,
   ];
 
   @override
@@ -76,12 +76,8 @@ class AddCommand extends BaseCommand {
       where = DependencyType.dependency;
     }
 
-    if (argResults.rest.isEmpty) {
-      throw PkgUsageException('Please provide a package name');
-    }
-
     // Get package name
-    final packageName = argResults.rest[0];
+    final packageName = argResults.rest.first;
 
     final pubspecFile = await findAncestor();
 

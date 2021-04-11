@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:pkg/src/helpers/exit_codes.dart';
-import 'package:pkg/src/logger.dart';
+import 'package:io/io.dart';
 import 'package:process_run/cmd_run.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 import '../constants.dart';
 import '../exceptions.dart';
+import '../logger.dart';
 
 /// Tools to interact with pub
 class PubTools {

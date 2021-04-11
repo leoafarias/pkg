@@ -1,9 +1,11 @@
+import 'package:io/ansi.dart';
+
 import '../exceptions.dart';
-import '../helpers/api_client.dart';
 import '../helpers/dependency_ref.dart';
 import '../helpers/pub_tools.dart';
 import '../helpers/utils.dart';
 import '../logger.dart';
+import 'fetch_package_info.workflow.dart';
 
 /// Tries to add latest compatible
 /// version of [ref] as a dependency [type]
@@ -11,8 +13,10 @@ Future<void> addSafeVersionWorkflow(
   DependencyRef ref,
   DependencyType where,
 ) async {
+  logger.stdout('Adding ${ref.packageName}...');
+
   /// Get latest information about the package
-  final packageInfo = await pubClient.packageInfo(ref.packageName);
+  final packageInfo = await fetchPackageInfoWorkflow(ref);
 
   /// Creates temp env for workflow
   await PubTools.initTempEnv();
@@ -27,8 +31,9 @@ Future<void> addSafeVersionWorkflow(
 
   if (!couldRun) {
     /// Exit and log
-    logger.stdout('Could not determine compatible version');
-    return;
+    throw PkgInternalError(
+      'There are no resolvable version of ${ref.packageName}',
+    );
   }
   // Get version from lock file
   final pubspecLock = await PubTools.getTempPubspecLockYaml();
@@ -56,11 +61,19 @@ Future<void> addSafeVersionWorkflow(
   /// TODO: Display package score
   /// Check if its latest version
   if (packageInfo.version == version) {
-    print('Added latest version: $version');
+    logger.stdout(
+      'Resolved latest ${ref.packageName}: ${green.wrap(version)}',
+    );
   } else {
-    print('Latest version is ${packageInfo.version}');
-    print('Added last compatible version $version');
+    logger.stdout(
+      'Latest: ${yellow.wrap(packageInfo.version)},'
+      ' but resolved ${green.wrap(version)}\n',
+    );
+    logger.stdout('Changelog:');
+    logger.stdout(pubDevChangelogUrl(
+      packageInfo.changelogUrl,
+      version,
+    ));
+    logger.stdout('');
   }
-
-  logger.stdout(pubDevChangelogUrl(packageInfo.changelogUrl, version));
 }

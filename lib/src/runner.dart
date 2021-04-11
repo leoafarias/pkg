@@ -7,6 +7,7 @@ import '../lib/src/../../src/logger.dart';
 import '../src/commands/add.dart';
 import '../src/exceptions.dart';
 import 'commands/remove.dart';
+import 'commands/view.dart';
 import 'version.dart';
 
 /// Command Runner for pkg
@@ -32,6 +33,7 @@ class PkgCommandRunner extends CommandRunner<int> {
       );
     addCommand(AddCommand());
     addCommand(RemoveCommand());
+    addCommand(ViewCommand());
   }
 
   @override
@@ -44,8 +46,7 @@ class PkgCommandRunner extends CommandRunner<int> {
 
       return exitCode;
     } on PkgUsageException catch (e) {
-      logger.stderr(e.message);
-      logger.stdout(usage);
+      logger.warn(e.message);
 
       return ExitCode.usage.code;
     } on PkgInternalError catch (e, stackTrace) {
@@ -54,8 +55,7 @@ class PkgCommandRunner extends CommandRunner<int> {
 
       return ExitCode.usage.code;
     } on UsageException catch (e) {
-      logger.stderr(e.message);
-
+      logger.warn(e.message);
       logger.stdout(usage);
 
       return ExitCode.usage.code;
