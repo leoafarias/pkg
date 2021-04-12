@@ -51,6 +51,9 @@ Future<void> addSafeVersionWorkflow(
   // Get version from lock file
   final version = lockedVersion.toString();
 
+  // Before modifying reset ref
+  ref.resetEdits();
+
   // Add latest compatible version
   ref.addOrUpdate(version, where: where);
 

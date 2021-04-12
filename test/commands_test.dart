@@ -1,5 +1,5 @@
-import 'package:pkg/src/constants.dart';
 @Timeout(Duration(minutes: 5))
+import 'package:pkg/src/constants.dart';
 import 'package:pkg/src/runner.dart';
 import 'package:pkg/src/version.dart';
 import 'package:test/test.dart';
@@ -28,6 +28,16 @@ void main() {
     try {
       await PkgCommandRunner().run(['add', 'fvm', '--no-get']);
       await PkgCommandRunner().run(['remove', 'fvm']);
+      expect(true, true);
+    } on Exception catch (e) {
+      fail('Exception thrown, $e');
+    }
+  });
+
+  test('Move packages', () async {
+    try {
+      await PkgCommandRunner().run(['add', 'meta']);
+      await PkgCommandRunner().run(['add', 'meta', '--dev']);
       expect(true, true);
     } on Exception catch (e) {
       fail('Exception thrown, $e');

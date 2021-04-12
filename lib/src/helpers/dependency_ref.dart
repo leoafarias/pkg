@@ -22,7 +22,7 @@ class DependencyRef {
   final String packageName;
 
   /// Mutable pubspec yaml
-  final YamlEditor pubspec;
+  YamlEditor pubspec;
 
   /// Dependency type
   final DependencyType type;
@@ -103,6 +103,12 @@ class DependencyRef {
       pubspec.remove([type.key, packageName]);
     }
   }
+
+  /// Resets all the edits in pubspec
+  void resetEdits() {
+    final contents = pubpsecFile.readAsStringSync();
+    pubspec = YamlEditor(contents);
+  }
 }
 
 /// Types of dependencies
@@ -116,7 +122,7 @@ enum DependencyType {
   /// Override dependency
   dependencyOverride,
 
-  ///
+  /// Not a dependency
   notDependency
 }
 
