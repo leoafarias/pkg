@@ -1,4 +1,6 @@
 import 'package:meta/meta.dart';
+import 'package:path/path.dart';
+import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 import '../constants.dart';
@@ -63,7 +65,7 @@ class DependencyRef {
   /// Saves temp pubspec
   void saveTemp() {
     tempPubpsecFile.writeAsStringSync(
-      pubspec.toString(),
+      replaceLocalPaths(pubspec),
     );
   }
 
@@ -167,6 +169,48 @@ bool checkFlutterDependency(YamlEditor pubspec) {
 
   /// Does it exist
   return flutter != null;
+}
+
+/// Check if is a Flutter dependency in [pubspec]
+String replaceLocalPaths(YamlEditor pubspec) {
+  // Create temp pubspec
+  final pubspecTemp = YamlEditor(pubspec.toString());
+  // Loop through dependency types
+  for (final type in DependencyTypeKey.all) {
+    /// Get all deps from type from pubspec
+    final dependencies = pubspecTemp.parseAt(
+      [type],
+      orElse: () => null,
+    );
+    // If no depencies for type
+    if (dependencies == null) {
+      break;
+    }
+
+    final allDeps = dependencies.value as YamlMap;
+    // loop through all entries
+    for (final dep in allDeps.entries) {
+      // If its a map with options
+      if (dep.value is YamlMap) {
+        // First key of map is 'path'
+        if (dep.value.keys?.first == 'path') {
+          // Join path of pubspec with relative 'path'
+          final relativePath = join(
+            pubpsecFile.parent.path,
+            dep.value['path'] as String,
+          );
+          // Normalize path to resolve
+          final absolutePath = normalize(relativePath);
+          // Update path on temp pubspec
+          pubspecTemp.update(
+            [type, dep.key, 'path'],
+            absolutePath,
+          );
+        }
+      }
+    }
+  }
+  return pubspecTemp.toString();
 }
 
 /// Gets dependency type

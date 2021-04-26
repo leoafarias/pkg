@@ -1,8 +1,8 @@
-## [Unreleased]
+## 0.0.3
 
-## [0.0.2] - 2021-04-12
+- Runs safe even witih relative path packages
 
-### Fixed
+## 0.0.2
 
 - Issue when switching version between dependency types
 
