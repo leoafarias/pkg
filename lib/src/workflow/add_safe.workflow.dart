@@ -19,7 +19,7 @@ Future<void> addSafeVersionWorkflow(
   final packageInfo = await fetchPackageInfoWorkflow(ref);
 
   /// Creates temp env for workflow
-  await PubTools.initTempEnv();
+  PubTools.initTempEnv();
   // Update version as any
   ref.addAnyVersion(where: where);
 

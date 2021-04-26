@@ -32,7 +32,7 @@ class PubTools {
 
   static Future<int> _cmdRunner(Future<ProcessResult> process) async {
     final result = await process;
-    final exitCode = await result.exitCode;
+    final exitCode = result.exitCode;
     // Log if it was not successful
     if (ExitCode.success.code != exitCode) {
       logger.stderr(result.stderr.toString());
