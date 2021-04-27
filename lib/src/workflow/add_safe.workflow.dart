@@ -1,4 +1,5 @@
 import 'package:io/ansi.dart';
+import 'package:yaml_edit/yaml_edit.dart';
 
 import '../exceptions.dart';
 import '../helpers/dependency_ref.dart';
@@ -40,11 +41,11 @@ Future<void> addSafeVersionWorkflow(
 
   final lockedVersion = pubspecLock.parseAt(
     ['packages', ref.packageName, 'version'],
-    orElse: () => null,
+    orElse: () => wrapAsYamlNode(null),
   );
 
   // If could not determine locked version throw [PkgInternalError]
-  if (lockedVersion == null) {
+  if (lockedVersion.value == null) {
     throw PkgInternalError('Could not determined compatible version');
   }
 

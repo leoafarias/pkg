@@ -3,12 +3,15 @@ import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:io/io.dart';
 
-import '../lib/src/../../src/logger.dart';
 import '../src/commands/add.dart';
 import '../src/exceptions.dart';
+import 'commands/like.dart';
+import 'commands/likes.dart';
 import 'commands/remove.dart';
+import 'commands/unlike.dart';
 import 'commands/view.dart';
 import 'helpers/check_update.dart';
+import 'logger.dart';
 import 'version.dart';
 
 /// Command Runner for pkg
@@ -35,6 +38,9 @@ class PkgCommandRunner extends CommandRunner<int> {
     addCommand(AddCommand());
     addCommand(RemoveCommand());
     addCommand(ViewCommand());
+    addCommand(ListLikesCommand());
+    addCommand(LikeCommand());
+    addCommand(UnlikeCommand());
   }
 
   @override

@@ -62,6 +62,12 @@ class ViewCommand extends BaseCommand {
       'Popularity: ${(scorecard.popularityScore * 100).round()}%',
     );
     logger.stdout('');
+    logger.stdout('Versions:');
+    logger.stdout('');
+    // Loop through versions
+    for (final version in info.versions) {
+      logger.stdout(version.version);
+    }
 
     return ExitCode.success.code;
   }

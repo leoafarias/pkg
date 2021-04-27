@@ -18,11 +18,15 @@ dependencies:
   # yaml_edit: ^1.0.3
   yaml_edit:
     git:
-      url: git://github.com/leoafarias/dart-neats.git
-      ref: master
+      url: git://github.com/asartalo/dart-neats.git
+      ref: yaml_edit-nullsafety
       path: yaml_edit
-  pub_api_client: ^2.0.1
-  meta: ^1.3.0
+  # pub_api_client: ^2.0.1
+  pub_api_client:
+    git:
+      url: git://github.com/leoafarias/pub_api_client.git
+      ref: feature/account-endpoints
+
   yaml: ^3.1.0
 
 dev_dependencies:
@@ -30,4 +34,5 @@ dev_dependencies:
   build_test: ^2.1.0
   build_version: ^2.0.2
   effective_dart: ^1.3.1
+  meta: ^1.3.0
   test: ^1.17.2

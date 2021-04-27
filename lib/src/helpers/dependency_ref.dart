@@ -164,11 +164,11 @@ bool checkFlutterDependency(YamlEditor pubspec) {
   /// Get dep from pubspec
   final flutter = pubspec.parseAt(
     [DependencyType.dependency.key, 'flutter'],
-    orElse: () => null,
+    orElse: () => wrapAsYamlNode(null),
   );
 
   /// Does it exist
-  return flutter != null;
+  return flutter.value != null;
 }
 
 /// Check if is a Flutter dependency in [pubspec]
@@ -180,10 +180,10 @@ String replaceLocalPaths(YamlEditor pubspec) {
     /// Get all deps from type from pubspec
     final dependencies = pubspecTemp.parseAt(
       [type],
-      orElse: () => null,
+      orElse: () => wrapAsYamlNode(null),
     );
     // If no depencies for type
-    if (dependencies == null) {
+    if (dependencies.value == null) {
       break;
     }
 
@@ -217,8 +217,11 @@ String replaceLocalPaths(YamlEditor pubspec) {
 DependencyType findDependencyType(
   String packageName,
   YamlEditor pubspec, {
-  List<String> types = DependencyTypeKey.all,
+  List<String>? types,
 }) {
+  // Assign type so it can be modified
+  // Needs t be a modifiable list
+  types ??= [...DependencyTypeKey.all];
   // Return if ran through all deps
   if (types.isEmpty) {
     return DependencyType.notDependency;
@@ -230,10 +233,10 @@ DependencyType findDependencyType(
   /// Get dep from pubspec
   final type = pubspec.parseAt(
     [depKey, packageName],
-    orElse: () => null,
+    orElse: () => wrapAsYamlNode(null),
   );
 
-  if (type != null) {
+  if (type.value != null) {
     return _getDependencyTypeFromKey(depKey);
   } else {
     /// Removes for recurive call
