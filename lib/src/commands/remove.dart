@@ -29,7 +29,7 @@ class RemoveCommand extends BaseCommand {
   @override
   Future<int> runWithGuards() async {
     // Get package name
-    final packageName = argResults.rest.first;
+    final packageName = argResults!.rest.first;
 
     // Load dependency
     final ref = DependencyRef.load(packageName);

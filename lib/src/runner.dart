@@ -8,6 +8,7 @@ import '../src/commands/add.dart';
 import '../src/exceptions.dart';
 import 'commands/remove.dart';
 import 'commands/view.dart';
+import 'helpers/check_update.dart';
 import 'version.dart';
 
 /// Command Runner for pkg
@@ -41,9 +42,8 @@ class PkgCommandRunner extends CommandRunner<int> {
     final _argResults = parse(args);
     try {
       final exitCode = await runCommand(_argResults) ?? ExitCode.success.code;
-
-      //TODO: check for update Check if its running the latest version of pkg
-
+      // Check if its latest version
+      await checkIfLatestVersion();
       return exitCode;
     } on PkgUsageException catch (e) {
       logger.warn(e.message);
@@ -63,7 +63,7 @@ class PkgCommandRunner extends CommandRunner<int> {
   }
 
   @override
-  Future<int> runCommand(ArgResults topLevelResults) async {
+  Future<int?> runCommand(ArgResults topLevelResults) async {
     if (topLevelResults['version'] == true) {
       logger.stdout(packageVersion);
       return ExitCode.success.code;

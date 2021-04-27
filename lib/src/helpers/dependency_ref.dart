@@ -1,6 +1,6 @@
-import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:yaml_edit/yaml_edit.dart';
 
 import '../constants.dart';
@@ -9,11 +9,11 @@ import '../constants.dart';
 class DependencyRef {
   /// Constructor
   DependencyRef._({
-    @required this.packageName,
-    @required this.pubspec,
-    @required this.exists,
-    @required this.type,
-    @required this.flutter,
+    required this.packageName,
+    required this.pubspec,
+    required this.exists,
+    required this.type,
+    required this.flutter,
     this.runSafe = false,
   });
 
@@ -203,7 +203,7 @@ String replaceLocalPaths(YamlEditor pubspec) {
           final absolutePath = normalize(relativePath);
           // Update path on temp pubspec
           pubspecTemp.update(
-            [type, dep.key, 'path'],
+            [type, dep.key as String, 'path'],
             absolutePath,
           );
         }
@@ -217,11 +217,8 @@ String replaceLocalPaths(YamlEditor pubspec) {
 DependencyType findDependencyType(
   String packageName,
   YamlEditor pubspec, {
-  List<String> types,
+  List<String> types = DependencyTypeKey.all,
 }) {
-  // First one set keys for recursive
-  types ??= [...DependencyTypeKey.all];
-
   // Return if ran through all deps
   if (types.isEmpty) {
     return DependencyType.notDependency;

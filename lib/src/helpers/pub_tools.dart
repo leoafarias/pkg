@@ -13,20 +13,28 @@ class PubTools {
   PubTools._();
 
   /// Runs [flutter pub get] command
-  static Future<int> runFlutterGet({Directory workingDir}) async {
+  static Future<int> runFlutterGet({Directory? workingDir}) async {
     workingDir ??= Directory.current;
     // Run command
     return _cmdRunner(
-      run('flutter', ['pub', 'get'], workingDirectory: workingDir.path),
+      runExecutableArguments(
+        'flutter',
+        ['pub', 'get'],
+        workingDirectory: workingDir.path,
+      ),
     );
   }
 
   /// Runs [pub get] command
-  static Future<int> runGet({Directory workingDir}) async {
+  static Future<int> runGet({Directory? workingDir}) async {
     workingDir ??= Directory.current;
     // Run command
     return _cmdRunner(
-      run('pub', ['get'], workingDirectory: workingDir.path),
+      runExecutableArguments(
+        'pub',
+        ['get'],
+        workingDirectory: workingDir.path,
+      ),
     );
   }
 
