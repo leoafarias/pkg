@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:io/io.dart';
+import 'package:pub_api_client/pub_api_client.dart';
 
 import '../src/commands/add.dart';
 import '../src/exceptions.dart';
@@ -62,6 +63,11 @@ class PkgCommandRunner extends CommandRunner<int> {
       return ExitCode.usage.code;
     } on UsageException catch (e) {
       logger.warn(e.message);
+      logger.stdout(usage);
+
+      return ExitCode.usage.code;
+    } on PubClientException catch (e) {
+      logger.warn('$e');
       logger.stdout(usage);
 
       return ExitCode.usage.code;

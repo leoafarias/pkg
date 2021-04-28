@@ -1,6 +1,6 @@
 import 'package:io/io.dart';
-import 'package:pkg/src/helpers/api_client.dart';
 
+import '../helpers/api_client.dart';
 import '../logger.dart';
 import 'base.dart';
 
