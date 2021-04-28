@@ -45,3 +45,23 @@ Display information about a package
 ```bash
 pkg view <package>
 ```
+
+## Likes
+
+Like a package
+
+```bash
+pkg like <package>
+```
+
+Unlike a package
+
+```bash
+pkg unlike <package>
+```
+
+View liked packages
+
+```bash
+pkg likes
+```
