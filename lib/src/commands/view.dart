@@ -30,7 +30,7 @@ class ViewCommand extends BaseCommand {
   @override
   Future<int> runWithGuards() async {
     // Get package name
-    final packageName = argResults.rest.first;
+    final packageName = argResults!.rest.first;
     // Load dependency
     final ref = DependencyRef.load(packageName);
 
@@ -62,6 +62,12 @@ class ViewCommand extends BaseCommand {
       'Popularity: ${(scorecard.popularityScore * 100).round()}%',
     );
     logger.stdout('');
+    logger.stdout('Versions:');
+    logger.stdout('');
+    // Loop through versions
+    for (final version in info.versions) {
+      logger.stdout(version.version);
+    }
 
     return ExitCode.success.code;
   }

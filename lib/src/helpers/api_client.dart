@@ -6,4 +6,7 @@ final _env = Platform.environment;
 
 /// Pub client
 // Null will use clients default
-final pubClient = PubClient(pubUrl: _env['PUB_HOSTED_URL']);
+final pubClient = PubClient(
+  pubUrl: _env['PUB_HOSTED_URL'],
+  credentials: pubCredentials,
+);

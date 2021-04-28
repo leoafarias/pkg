@@ -10,6 +10,7 @@ Enhanced pub package commands.
 - Add latest resolvable package
 - Remove dependency
 - View package info
+- Like/unlike/view liked pub.dev packages
 - Improved conflict resolution (soon)
 - View unused dependencies (soon)
 
@@ -43,4 +44,24 @@ Display information about a package
 
 ```bash
 pkg view <package>
+```
+
+## Likes
+
+Like a package
+
+```bash
+pkg like <package>
+```
+
+Unlike a package
+
+```bash
+pkg unlike <package>
+```
+
+View liked packages
+
+```bash
+pkg likes
 ```

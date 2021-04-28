@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 
 /// Recursive look up to find nested project directory
 /// Can start at a specific [directory] if provided
-Future<File> findAncestor({Directory directory}) async {
+Future<File?> findAncestor({Directory? directory}) async {
   // Get directory, defined root or current
   directory ??= Directory.current;
 

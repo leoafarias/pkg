@@ -1,6 +1,6 @@
-import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:yaml_edit/yaml_edit.dart';
 
 import '../constants.dart';
@@ -9,11 +9,11 @@ import '../constants.dart';
 class DependencyRef {
   /// Constructor
   DependencyRef._({
-    @required this.packageName,
-    @required this.pubspec,
-    @required this.exists,
-    @required this.type,
-    @required this.flutter,
+    required this.packageName,
+    required this.pubspec,
+    required this.exists,
+    required this.type,
+    required this.flutter,
     this.runSafe = false,
   });
 
@@ -164,11 +164,11 @@ bool checkFlutterDependency(YamlEditor pubspec) {
   /// Get dep from pubspec
   final flutter = pubspec.parseAt(
     [DependencyType.dependency.key, 'flutter'],
-    orElse: () => null,
+    orElse: () => wrapAsYamlNode(null),
   );
 
   /// Does it exist
-  return flutter != null;
+  return flutter.value != null;
 }
 
 /// Check if is a Flutter dependency in [pubspec]
@@ -180,10 +180,10 @@ String replaceLocalPaths(YamlEditor pubspec) {
     /// Get all deps from type from pubspec
     final dependencies = pubspecTemp.parseAt(
       [type],
-      orElse: () => null,
+      orElse: () => wrapAsYamlNode(null),
     );
     // If no depencies for type
-    if (dependencies == null) {
+    if (dependencies.value == null) {
       break;
     }
 
@@ -203,7 +203,7 @@ String replaceLocalPaths(YamlEditor pubspec) {
           final absolutePath = normalize(relativePath);
           // Update path on temp pubspec
           pubspecTemp.update(
-            [type, dep.key, 'path'],
+            [type, dep.key as String, 'path'],
             absolutePath,
           );
         }
@@ -217,11 +217,11 @@ String replaceLocalPaths(YamlEditor pubspec) {
 DependencyType findDependencyType(
   String packageName,
   YamlEditor pubspec, {
-  List<String> types,
+  List<String>? types,
 }) {
-  // First one set keys for recursive
+  // Assign type so it can be modified
+  // Needs t be a modifiable list
   types ??= [...DependencyTypeKey.all];
-
   // Return if ran through all deps
   if (types.isEmpty) {
     return DependencyType.notDependency;
@@ -233,10 +233,10 @@ DependencyType findDependencyType(
   /// Get dep from pubspec
   final type = pubspec.parseAt(
     [depKey, packageName],
-    orElse: () => null,
+    orElse: () => wrapAsYamlNode(null),
   );
 
-  if (type != null) {
+  if (type.value != null) {
     return _getDependencyTypeFromKey(depKey);
   } else {
     /// Removes for recurive call

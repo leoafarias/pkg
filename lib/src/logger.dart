@@ -16,13 +16,13 @@ class PrettyLogger {
   void stdout(String message) => logger.stdout(message);
 
   /// Prints an error message
-  void stderr(String message) => logger.stderr(red.wrap(message));
+  void stderr(String message) => logger.stderr(red.wrap(message)!);
 
   /// Prints a warning message
-  void warn(String message) => logger.stdout(yellow.wrap(message));
+  void warn(String message) => logger.stdout(yellow.wrap(message)!);
 
   /// Prints a success message
-  void success(String message) => logger.stdout(green.wrap(message));
+  void success(String message) => logger.stdout(green.wrap(message)!);
 
   /// Prints trace output
   void trace(String message) => logger.trace(message);

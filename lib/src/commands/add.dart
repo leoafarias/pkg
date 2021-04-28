@@ -77,7 +77,7 @@ class AddCommand extends BaseCommand {
     }
 
     // Get package name
-    final packageName = argResults.rest.first;
+    final packageName = argResults!.rest.first;
 
     final pubspecFile = await findAncestor();
 
