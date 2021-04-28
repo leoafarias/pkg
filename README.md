@@ -10,6 +10,7 @@ Enhanced pub package commands.
 - Add latest resolvable package
 - Remove dependency
 - View package info
+- Like/unlike/view liked pub.dev packages
 - Improved conflict resolution (soon)
 - View unused dependencies (soon)
 

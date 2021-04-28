@@ -47,24 +47,3 @@ class DependencyTypeKey {
     dependency,
   ];
 }
-
-final _kEnvVars = Platform.environment;
-
-/// User Home Path
-String get kUserHome {
-  if (Platform.isWindows) {
-    return _kEnvVars['UserProfile']!;
-  } else {
-    return _kEnvVars['HOME']!;
-  }
-}
-
-/// Directory for .pub-cache
-Directory get pubCacheDir => Directory(
-      join(kUserHome, '.pub-cache'),
-    );
-
-/// Credentials json
-File get credentialsFile => File(
-      join(pubCacheDir.path, 'credentials.json'),
-    );
