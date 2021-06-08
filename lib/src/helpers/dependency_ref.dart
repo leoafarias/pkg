@@ -4,6 +4,7 @@ import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 import '../constants.dart';
+import 'utils.dart';
 
 /// Current dependency snapshot
 class DependencyRef {
@@ -38,8 +39,7 @@ class DependencyRef {
   /// Loads a dependency ref [packageName] in the [pubspec]
   factory DependencyRef.load(String packageName) {
     // Load yaml
-    final contents = pubpsecFile.readAsStringSync();
-    final pubspec = YamlEditor(contents);
+    final pubspec = loadPubspecSync();
 
     // Find dependency type
     final type = findDependencyType(packageName, pubspec);
@@ -146,7 +146,7 @@ extension DependencyTypeExtension on DependencyType {
 }
 
 /// Get type from key
-DependencyType _getDependencyTypeFromKey(String key) {
+DependencyType getDependencyTypeFromKey(String key) {
   switch (key) {
     case DependencyTypeKey.dependency:
       return DependencyType.dependency;
@@ -237,7 +237,7 @@ DependencyType findDependencyType(
   );
 
   if (type.value != null) {
-    return _getDependencyTypeFromKey(depKey);
+    return getDependencyTypeFromKey(depKey);
   } else {
     /// Removes for recurive call
     types.remove(depKey);

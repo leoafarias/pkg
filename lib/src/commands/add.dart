@@ -38,12 +38,12 @@ class AddCommand extends BaseCommand {
       negatable: false,
     );
 
-    argParser.addFlag(
-      'no-get',
-      help: 'Will not run pub get after adding package',
-      abbr: 'n',
-      negatable: false,
-    );
+    // argParser.addFlag(
+    //   'no-get',
+    //   help: 'Will not run pub get after adding package',
+    //   abbr: 'n',
+    //   negatable: false,
+    // );
 
     argParser.addFlag(
       'latest',
@@ -66,7 +66,7 @@ class AddCommand extends BaseCommand {
     final devFlag = boolArg('dev');
     final overrideFlag = boolArg('override');
     final latestFlag = boolArg('latest');
-    final noGetFlag = boolArg('no-get');
+    // final noGetFlag = boolArg('no-get');
 
     if (devFlag) {
       where = DependencyType.devDependency;
@@ -87,17 +87,19 @@ class AddCommand extends BaseCommand {
 
     final ref = DependencyRef.load(packageName);
 
-    if (latestFlag) {
-      await addLatestVersionWorkflow(ref, where);
-    } else {
-      await addSafeVersionWorkflow(ref, where);
-    }
-
+    int exitCode;
+    await addLatestVersionWorkflow(ref, where);
     // Run pub get
-    if (noGetFlag == false) {
-      await pubGetWorkflow(ref);
-    }
+    exitCode = await pubGetWorkflow(ref);
 
-    return ExitCode.success.code;
+    /// Get latest compatible version
+    /// If latest flag has not been set
+    /// and exitCode is not success
+    if (latestFlag == false && exitCode != ExitCode.success.code) {
+      await addSafeVersionWorkflow(ref, where);
+      exitCode = await pubGetWorkflow(ref);
+    }
+    // Return exit code
+    return exitCode;
   }
 }

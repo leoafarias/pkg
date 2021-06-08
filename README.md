@@ -46,6 +46,14 @@ Display information about a package
 pkg view <package>
 ```
 
+## Unused
+
+Display dependencies that are not referenced directly in your code.
+
+```bash
+pkg unused
+```
+
 ## Likes
 
 Like a package

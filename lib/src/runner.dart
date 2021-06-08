@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:io/io.dart';
+import 'package:pkg/src/commands/unused.dart';
 import 'package:pub_api_client/pub_api_client.dart';
 
 import '../src/commands/add.dart';
@@ -42,6 +43,7 @@ class PkgCommandRunner extends CommandRunner<int> {
     addCommand(ListLikesCommand());
     addCommand(LikeCommand());
     addCommand(UnlikeCommand());
+    addCommand(UnusedCommand());
   }
 
   @override

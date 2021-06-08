@@ -1,6 +1,11 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
+import 'package:yaml/yaml.dart';
+import 'package:yaml_edit/yaml_edit.dart';
+
+import '../constants.dart';
+import 'dependency_ref.dart';
 
 /// Recursive look up to find nested project directory
 /// Can start at a specific [directory] if provided
@@ -31,4 +36,59 @@ Future<File?> findAncestor({Directory? directory}) async {
 String pubDevChangelogUrl(String url, String version) {
   final cleanVersion = version.replaceAll('.', '').replaceAll('+', '');
   return '$url#$cleanVersion';
+}
+
+/// Load PubSpec
+YamlEditor loadPubspecSync() {
+  // Load yaml
+  final contents = pubpsecFile.readAsStringSync();
+  return YamlEditor(contents);
+}
+
+/// Map of dependencies
+typedef DependenciesMap = Map<DependencyType, List<String>>;
+
+/// Get all dependencies
+DependenciesMap getAllDependencies(
+  YamlEditor pubspec, {
+  DependenciesMap? deps,
+  List<String>? types,
+}) {
+  deps ??= {};
+  // Assign type so it can be modified
+  // Needs t be a modifiable list
+  types ??= [
+    DependencyTypeKey.dependency,
+    DependencyTypeKey.devDependency,
+    DependencyTypeKey.dependencyOverride,
+  ];
+  // Return if ran through all deps
+  if (types.isEmpty) {
+    return deps;
+  }
+
+// Current dep key
+  final depKey = types[0];
+
+  /// Get deps from dep type
+  final depsInType = pubspec.parseAt(
+    [depKey],
+    orElse: () => wrapAsYamlNode({}),
+  );
+  final foundMap = depsInType.value as YamlMap;
+  // Cast list as string
+  final foundPkgs = foundMap.keys.toList().cast<String>().toList();
+  final depType = getDependencyTypeFromKey(depKey);
+
+  deps[depType] = foundPkgs;
+
+  // Remove current type in loop
+  types.remove(depType.key);
+
+  // Run recursively
+  return getAllDependencies(
+    pubspec,
+    deps: deps,
+    types: types,
+  );
 }

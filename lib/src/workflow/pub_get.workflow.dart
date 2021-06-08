@@ -3,14 +3,15 @@ import '../helpers/pub_tools.dart';
 import '../logger.dart';
 
 /// Runs [pub get] command
-Future<void> pubGetWorkflow(DependencyRef ref) async {
+Future<int> pubGetWorkflow(DependencyRef ref) async {
   final progress = logger.progress('Running pub get');
-
+  int exitCode;
   if (ref.flutter) {
-    await PubTools.runFlutterGet();
+    exitCode = await PubTools.runFlutterGet();
   } else {
-    await PubTools.runGet();
+    exitCode = await PubTools.runGet();
   }
 
   progress.finish();
+  return exitCode;
 }
