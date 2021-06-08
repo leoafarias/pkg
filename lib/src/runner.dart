@@ -2,7 +2,6 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:io/io.dart';
-import 'package:pkg/src/commands/unused.dart';
 import 'package:pub_api_client/pub_api_client.dart';
 
 import '../src/commands/add.dart';
@@ -11,6 +10,7 @@ import 'commands/like.dart';
 import 'commands/likes.dart';
 import 'commands/remove.dart';
 import 'commands/unlike.dart';
+import 'commands/unused.dart';
 import 'commands/view.dart';
 import 'helpers/check_update.dart';
 import 'logger.dart';

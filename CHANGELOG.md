@@ -1,3 +1,7 @@
+## 0.0.5
+
+- Added unused command to view dependencies not referenced in your code
+
 ## 0.0.4
 
 - Null-safety
