@@ -1,6 +1,6 @@
 name: pkg
 description: Enhanced pub package commands to manage and interact with project dependencies.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/leoafarias/pkg
 executables:
   pkg: pkg
