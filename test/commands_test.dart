@@ -27,7 +27,7 @@ void main() {
 
   test('Add latest version of the package', () async {
     try {
-      await PkgCommandRunner().run(['add', 'fvm', '--no-get']);
+      await PkgCommandRunner().run(['add', 'fvm']);
       await PkgCommandRunner().run(['remove', 'fvm']);
       expect(true, true);
     } on Exception catch (e) {
