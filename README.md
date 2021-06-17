@@ -13,7 +13,7 @@ Enhanced pub package commands.
 - View package info
 - Like/unlike/view liked pub.dev packages
 - Improved conflict resolution (soon)
-- View unused dependencies (soon)
+- View unused dependencies 
 
 # Installation
 
